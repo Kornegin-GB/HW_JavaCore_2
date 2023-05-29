@@ -42,8 +42,8 @@ public class Main {
      */
     private static void initialize() {
         // Установим размер игрового поля
-        fieldSizeWidth = 4;
-        fieldSizeHeight = 3;
+        fieldSizeWidth = 5;
+        fieldSizeHeight = 5;
         field = new char[fieldSizeHeight][fieldSizeWidth];
         for (int y = 0; y < fieldSizeHeight; y++) {
             for (int x = 0; x < fieldSizeWidth; x++) {
@@ -131,35 +131,70 @@ public class Main {
      * @return true если победа, false если нет выигрошной комбинации
      */
     static boolean checkWin(char c) {
-        // Проверка по трем горизонталям
-        if (field[0][0] == c && field[0][1] == c && field[0][2] == c) {
-            return true;
+        int count = 0;
+        // Проверка по горизонтали
+        for (int j = 0; j < fieldSizeHeight; j++) {
+            for (int i = 0; i < fieldSizeWidth; i++) {
+                if (field[j][i] == c) {
+                    count++;
+                } else {
+                    count = 0;
+                }
+                if (count == WIN_COUNT) {
+                    return true;
+                }
+            }
         }
-        if (field[1][0] == c && field[1][1] == c && field[1][2] == c) {
-            return true;
+        // Проверка по вертикали
+        count = 0;
+        for (int i = 0; i < fieldSizeWidth; i++) {
+            for (int j = 0; j < fieldSizeHeight; j++) {
+                if (field[j][i] == c) {
+                    count++;
+                } else {
+                    count = 0;
+                }
+                if (count == WIN_COUNT) {
+                    return true;
+                }
+            }
         }
-        if (field[2][0] == c && field[2][1] == c && field[2][2] == c) {
-            return true;
-        }
-        // Проверка по трем вертикалям
-        if (field[0][0] == c && field[1][0] == c && field[2][0] == c) {
-            return true;
-        }
-        if (field[0][1] == c && field[1][1] == c && field[2][1] == c) {
-            return true;
-        }
-        if (field[0][2] == c && field[1][2] == c && field[2][2] == c) {
-            return true;
-        }
-        // Проверка по диоганалям
-        if (field[0][0] == c && field[1][1] == c && field[2][2] == c) {
-            return true;
-        }
-        if (field[0][2] == c && field[1][1] == c && field[2][0] == c) {
-            return true;
-        }
+        // Проверка по диагонали
+        // TODO: Реализовать проверку по диагонали
+
         return false;
+
     }
+//    static boolean checkWin(char c) {
+//        // Проверка по трем горизонталям
+//        if (field[0][0] == c && field[0][1] == c && field[0][2] == c) {
+//            return true;
+//        }
+//        if (field[1][0] == c && field[1][1] == c && field[1][2] == c) {
+//            return true;
+//        }
+//        if (field[2][0] == c && field[2][1] == c && field[2][2] == c) {
+//            return true;
+//        }
+//        // Проверка по трем вертикалям
+//        if (field[0][0] == c && field[1][0] == c && field[2][0] == c) {
+//            return true;
+//        }
+//        if (field[0][1] == c && field[1][1] == c && field[2][1] == c) {
+//            return true;
+//        }
+//        if (field[0][2] == c && field[1][2] == c && field[2][2] == c) {
+//            return true;
+//        }
+//        // Проверка по диоганалям
+//        if (field[0][0] == c && field[1][1] == c && field[2][2] == c) {
+//            return true;
+//        }
+//        if (field[0][2] == c && field[1][1] == c && field[2][0] == c) {
+//            return true;
+//        }
+//        return false;
+//    }
 
     /**
      * Проверка на ничью
