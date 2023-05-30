@@ -159,42 +159,36 @@ public class Main {
                 }
             }
         }
-        // Проверка по диагонали
-        // TODO: Реализовать проверку по диагонали
-
+        /*
+         * Проверка по диагонали
+         * 
+         * Запускаем цикл пока курсор в зоне поля или пока нет выигрышной комбинации
+         * Запускаем цикл обхода поля и поиска значения, при этом обнуляем счетчик
+         * выигрышной комбинации каждый раз когда переходим на другую строку поля
+         * 
+         * Далее проверяем выигрышную комбинацию и если есть выигрышная комбинация то
+         * увеличиваем счетчик совпадения
+         * 
+         */
+        int k = 0;
+        while (k < fieldSizeHeight && k != WIN_COUNT) {
+            for (int i = 0; i < fieldSizeHeight; i++) {
+                count = 0;
+                for (int j = 0; j < fieldSizeWidth; j++) {
+                    if (i + j < fieldSizeHeight && (k + j < fieldSizeHeight) && field[k + j][i + j] == c) {
+                        count++;
+                    } else if (!(i - j < 0) && (k + j < fieldSizeHeight) && field[k + j][i - j] == c) {
+                        count++;
+                    }
+                    if (count == WIN_COUNT) {
+                        return true;
+                    }
+                }
+            }
+            k++;
+        }
         return false;
-
     }
-//    static boolean checkWin(char c) {
-//        // Проверка по трем горизонталям
-//        if (field[0][0] == c && field[0][1] == c && field[0][2] == c) {
-//            return true;
-//        }
-//        if (field[1][0] == c && field[1][1] == c && field[1][2] == c) {
-//            return true;
-//        }
-//        if (field[2][0] == c && field[2][1] == c && field[2][2] == c) {
-//            return true;
-//        }
-//        // Проверка по трем вертикалям
-//        if (field[0][0] == c && field[1][0] == c && field[2][0] == c) {
-//            return true;
-//        }
-//        if (field[0][1] == c && field[1][1] == c && field[2][1] == c) {
-//            return true;
-//        }
-//        if (field[0][2] == c && field[1][2] == c && field[2][2] == c) {
-//            return true;
-//        }
-//        // Проверка по диоганалям
-//        if (field[0][0] == c && field[1][1] == c && field[2][2] == c) {
-//            return true;
-//        }
-//        if (field[0][2] == c && field[1][1] == c && field[2][0] == c) {
-//            return true;
-//        }
-//        return false;
-//    }
 
     /**
      * Проверка на ничью
@@ -215,7 +209,7 @@ public class Main {
     /**
      * Метод проверки состояния игры
      * 
-     * @param c   крестик или нолик для определения победной комбинации
+     * @param с   крестик или нолик для определения победной комбинации
      * @param str строка сообщения о том кто победил
      * @return true есть победитель, false победителя нет игра продолжается
      */
